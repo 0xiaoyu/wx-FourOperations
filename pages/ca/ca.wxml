@@ -1,0 +1,33 @@
+<!--pages/ca/ca.wxml-->
+<picker class="picker" mode="selector" range="{{operate}}" range-key="" value="{{operate_selected}}" bindchange="pickerChange" bindcancel="">
+  <div class="picker-container">
+    <span class="picker-range">当前选择的题目类型为:{{operate[operate_selected]}}</span>
+  </div>
+</picker>
+
+<view class="mmm" wx:for="{{a1}}" wx:for-index="index" wx:for-item="item">
+  <view class="nn">{{index+1}}.</view>
+  <view class="nn">{{item}}</view>
+  <view class="nn">{{operate_f[operate_selected]}}</view>
+  <view class="nn">{{a2[index]}}</view>
+  <view class="nn">=</view>
+  <input class="inputn" value="{{n}}" type="number" placeholder="输入答案" placeholder-class="input-placeholder" bindinput="changeInput" data-index="{{index}}" disabled="{{false}}" maxlength="4" focus="{{true}}" />
+  <image class="image_c" src="{{image_a[index]?'/images/笑脸.png':'/images/哭脸.png'}}" mode="widthFix" lazy-load="{{false}}" />
+  <view class="nn" id="ans" wx:if="{{count!=-1}}">
+    {{ans[index]}}
+  </view>
+</view>
+
+<block>
+  <view wx:if="{{count!=-1}}" class="ans-submit">
+    获得了{{count*10}}分
+  </view>
+</block>
+<view class="sss">
+  <button class="defaults" type="default" hover-class="button-hover" hover-stop-propagation="{{false}}" bindtap="sumbitNum">
+    确认提交
+  </button>
+  <button class="defaults" type="default" hover-class="button-hover" hover-stop-propagation="{{false}}" bindtap="resetNum">
+    再来一次
+  </button>
+</view>
