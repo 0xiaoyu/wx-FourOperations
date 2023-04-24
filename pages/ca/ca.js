@@ -14,7 +14,8 @@ Page({
         ],
         operate_f:['+','-','*','/'],
         operate_selected:0,
-        count:-1
+        count:-1,
+        countNum:0
     },
     m:10//常数，所有的位数控制
     ,
@@ -38,7 +39,6 @@ Page({
      * 初始化，设置问题和答案
      */
     getRandomTest(){
-    
         var n1 = this.getRandom(this.m)
         var n2 = this.getRandom(this.m)
         var a = []
@@ -72,12 +72,13 @@ Page({
      * 检查是否填入完全
      */
     checkN(){
-        if(this.data.n.length != this.m)
-            return false
-        for(var a in this.data.n)
-          if(a == null)
-            return false
-        return true
+      return this.data.countNum == this.m
+        // if(this.data.n.length != this.m)
+        //     return false
+        // for(var a in this.data.n)
+        //   if(a == null)
+        //     return false
+        // return true
     },
     /**
      * 提交事件
@@ -87,6 +88,19 @@ Page({
             title: "校验中",
             mask: true
         });
+        wx.showLoading({
+          title: 'title',
+          mask: true,
+          success: (res) => {},
+          fail: (res) => {},
+          complete: (res) => {},
+        })
+        wx.hideLoading({
+          noConflict: true,
+          success: (res) => {},
+          fail: (res) => {},
+          complete: (res) => {},
+        })
         setTimeout(function(){
             wx.hideLoading()
           },1000)
@@ -109,6 +123,7 @@ Page({
               icon: 'error',
               duration: 2000
             })
+            
         }
     },
     /**
@@ -129,6 +144,13 @@ Page({
     changeInput(e){
         var index = e.currentTarget.dataset.index
         this.data.n[index] = e.detail.value
+        this.changeNum()
+    },
+    //用户有效输入
+    changeNum(){
+      this.setData({
+        countNum:this.data.n.filter(i=>i!="").length
+      });
     },
 
     /**

@@ -1,5 +1,5 @@
 <!--pages/ca/ca.wxml-->
-<picker class="picker" mode="selector" range="{{operate}}" range-key="" value="{{operate_selected}}" bindchange="pickerChange" bindcancel="">
+<picker class="picker" mode="selector" range="{{operate}}" range-key="" value="{{operate_selected}}" bindchange="pickerChange">
   <div class="picker-container">
     <span class="picker-range">当前选择的题目类型为:{{operate[operate_selected]}}</span>
   </div>
@@ -23,6 +23,8 @@
     获得了{{count*10}}分
   </view>
 </block>
+<progress wx:if="{{countNum!=10}}" percent="{{countNum*10}}" active="{{true}} " active-mode="forwards" show-info="{{true}}" />
+<view wx:else>恭喜你做完了所有题目</view>
 <view class="sss">
   <button class="defaults" type="default" hover-class="button-hover" hover-stop-propagation="{{false}}" bindtap="sumbitNum">
     确认提交
